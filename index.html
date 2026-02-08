@@ -1,267 +1,481 @@
 <!DOCTYPE HTML>
 <html lang="en">
-  <head>
-    <meta name="google-site-verification" content="ig-ZLvFPhXQuT1IDx-WdlzGjycWQ6z2BoFy01q5Pnwo" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-    <title>Hyunjoon Lee</title>
-
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hyunjoon Lee - Integrated MS/PhD student at VGI Lab, SNU">
     <meta name="author" content="Hyunjoon Lee">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hyunjoon Lee | VGI Lab</title>
     <link rel="shortcut icon" href="images/icon.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
-    
-  </head>
 
-  <body>
-    <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-      <tr style="padding:0px">
-        <td style="padding:0px">
-          
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr style="padding:0px">
-              <td style="padding:2.5%;width:63%;vertical-align:middle">
-                <p class="name" style="text-align: center;">
-                Hyunjoon Lee
-                </p>
-                <p>
-                  I am an integrated MS/PhD student at <a href="https://jaesik.info/">VGI Lab</a> (Visual and Geometric Intelligence Lab) at <a href="https://www.snu.ac.kr/">Seoul National University</a>, where I am advised by Prof. <a href="https://jaesik.info/">Jaesik Park</a>.
-                </p>
-                <p style="text-align:center">
-                  <a href="hjlee4772@snu.ac.kr">Email</a> &nbsp;/&nbsp;
-                  <a href="data/cv.pdf">CV</a> &nbsp;/&nbsp;
-                  <a href="https://scholar.google.com/citations?hl=ko&authuser=3&user=UURG9uwAAAAJ">Scholar</a> &nbsp;/&nbsp;
-                  <a href="https://www.linkedin.com/in/hyunjoon-lee-05057427a/">LinkedIn</a> &nbsp;/&nbsp;
-                  <a href="https://github.com/JJoonII">Github</a>
-                </p>
-              </td>
-              <td style="padding:2.5%;width:37%;max-width:37%">
-                <a href="images/HJ.jpg"><img style="width:100%;max-width:100%;object-fit: cover; border-radius: 50%;" alt="profile photo" src="images/HJ.jpg" class="hoverZoomLink"></a>
-              </td>
-            </tr>
-          </tbody></table>
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-              <tr>
-              <td style="padding:16px;width:100%;vertical-align:middle">
-                <h2>Education</h2>
-                <ul>
-                  <li>
-                    <strong>Seoul National University</strong>, Seoul, Korea
-                    <br>
-                    Integrated M.S./Ph.D. in Interdisciplinary Program in Artificial Intelligence
-                    <br>
-                    <em>Advisor: <a href="https://jaesik.info/">Jaesik Park</a></em>
-                    <br>
-                    <span style="font-size:small;">Mar. 2024 - Present</span>
-                  </li>
-                  <li style="margin-top: 10px;">
-                    <strong>Sungkyunkwan University (SKKU)</strong>, Suwon, Korea
-                    <br>
-                    B.S. in Mechanical Engineering
-                    <br>
-                    <em>Summa Cum Laude<strong>(1/131)</strong>, GPA: 4.39/4.5</em>
-                    <br>
-                    <span style="font-size:small;">Mar. 2018 - Feb. 2024</span>
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          </tbody></table>
+    <style>
+        /* --- 1. Global Reset & Variables --- */
+        :root {
+            --bg-color: #f5f5f7;        /* 요청하신 옅은 회색 배경 */
+            --card-bg: #ffffff;         /* 카드 배경 */
+            --text-main: #1d1d1f;       /* 진한 회색 (본문) */
+            --text-sub: #86868b;        /* 보조 텍스트 */
+            --accent-color: #2563eb;    /* 포인트 컬러 (차분한 로얄 블루) */
+            --border-radius: 16px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- 2. Layout Structure --- */
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* --- 3. Card Component --- */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            color: var(--text-main);
+        }
+
+        /* --- 4. Section: Profile --- */
+        .profile-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .profile-text {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .profile-bio {
+            font-size: 1.05rem;
+            color: #424245;
+            margin-bottom: 20px;
+        }
+
+        .profile-bio a {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .profile-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .link-badge {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            background-color: rgba(37, 99, 235, 0.1); /* 포인트 컬러의 아주 옅은 버전 */
+            padding: 6px 14px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .link-badge:hover {
+            background-color: var(--accent-color);
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        .profile-img-container {
+            flex-shrink: 0;
+            width: 200px;
+            height: 200px;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+        }
+
+        /* --- 5. Section: Education & Experience (Timeline Style) --- */
+        .info-list {
+            list-style: none;
+        }
+
+        .info-item {
+            display: flex;
+            margin-bottom: 24px;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-content {
+            flex: 1;
+        }
+
+        .info-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        .info-meta {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
+
+        .info-desc {
+            font-size: 0.95rem;
+            color: #424245;
+        }
+
+        .date-badge {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-sub);
+            background: #f0f0f0;
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin-top: 4px;
+        }
+
+        /* --- 6. Section: Projects (Grid/Flex) --- */
+        .project-item {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 40px;
+            align-items: flex-start;
+        }
         
-          <!-- Experiences (NEW) -->
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-              <td style="padding:16px;width:100%;vertical-align:middle">
-                <h2>Experiences</h2>
-                <ul>
-                  <li>
-                    <strong>Research Intern</strong>, HuGe Lab, KAIST AI (Seoul, Korea)
-                    <br>
-                    <em>Advisor: Beomjoon Kim</em>
-                    <br>
-                    <span style="font-size:small;">Jun. 2023 - Sep. 2023</span>
-                    <br>
-                    Developed a model to predict 6-DoF grasp poses using a depth sensor.
-                  </li>
+        .project-item:last-child {
+            margin-bottom: 0;
+        }
 
-                  <li style="margin-top: 10px;">
-                    <strong>Research Intern</strong>, CSI Lab, SKKU (Suwon, Korea)
-                    <br>
-                    <em>Advisor: Yusung Kim</em>
-                    <br>
-                    <span style="font-size:small;">Jan. 2023 - Jun. 2023</span>
-                    <br>
-                    Developed an RL agent using the PPO algorithm and transformer architecture.
-                  </li>
+        .project-thumb {
+            width: 220px;
+            flex-shrink: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background-color: #ffffff; /* 이미지 로딩 전 배경 */
+        }
 
-                  <li style="margin-top: 10px;">
-                    <strong>Research Intern</strong>, CAMAS Lab, SKKU (Suwon, Korea)
-                    <br>
-                    <em>Advisor: Jachoon Koo</em>
-                    <br>
-                    <span style="font-size:small;">Dec. 2019 - Mar. 2020</span>
-                    <br>
-                    Developed a mathematical model to elucidate the stiffness mechanism of the soft gripper.
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          </tbody></table>
-    
+        .project-thumb img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s;
+        }
 
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-              <tr>
-              <td style="padding:16px;width:100%;vertical-align:middle">
-                <h2>Research</h2>
-                <p>
-                  My research interests lie at the intersection of <strong>3D vision and robotics</strong>. I am particularly interested in how we can leverage rich scene information to enhance robot manipulation capabilities in complex environments.
-                </p>
-              </td>
-            </tr>
-          </tbody></table>
+        .project-thumb:hover img {
+            transform: scale(1.05);
+        }
 
-          <table style="width:100%;border:0px;border-spacing:0px 10px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+        .project-details {
+            flex: 1;
+        }
 
-            <tr> 
-              <td style="padding:16px;width:30%;vertical-align:middle">
-                <img src="images/hidigs_v1.png" alt="project image" style="width:100%; max-width:100%;">
-              </td>
+        .project-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
 
-                
-              <td style="padding:8px;width:80%;vertical-align:middle">
-                <strong>Hyunjoon Lee*</strong>,
-                <a>Eunsung Cha*</a>,
-                <a href="https://jaesik.info/">Jaesik Park</a>,
-                <br>
-                <em>Under Review</em>, 2026
-                <br>
-                <p>
-                We propose a training-free hierarchical clustering framework for open-vocabulary 3D Gaussian segmentation, unifying instance-level coherence and query flexibility via an efficient digraph-based formulation without per-scene optimization.
-              </td>
-            </tr>
+        .project-title a {
+            color: var(--text-main);
+        }
+        
+        .project-title a:hover {
+            color: var(--accent-color);
+        }
 
-            <tr> 
-              <td style="padding:16px;width:30%;vertical-align:middle">
-                <img src="images/mmvt_v1.png" alt="project image" style="width:100%; max-width:100%;">
-              </td>
+        .project-authors {
+            font-size: 0.95rem;
+            color: var(--text-sub);
+            margin-bottom: 6px;
+        }
 
-                
-              <td style="padding:8px;width:80%;vertical-align:middle">
-                <a>Jinmo Kim</a>,
-                <a>Namtae Kim</a>,
-                <strong>Hyunjoon Lee</strong>,
-                <a>Seungha Kim</a>,
-                <a href="https://jaesik.info/">Jaesik Park</a>,
-                <br>
-                <em>Under Review</em>, 2026
-                <br>
-                <p>
-                We propose a feed-forward multi-view 3D reconstruction framework that explicitly reasons about occlusions by reconstructing missing latent tokens across views, enabling fast and consistent amodal shape completion without generative inpainting.
-            </tr>
+        .project-venue {
+            font-style: italic;
+            color: var(--accent-color); /* 강조색 사용 */
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: block;
+        }
 
-            <tr> 
-              <td style="padding:16px;width:30%;vertical-align:middle">
-                <img src="images/cf3.png" alt="project image" style="width:100%; max-width:100%;">
-              </td>
+        .project-desc {
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
 
-                
-              <td style="padding:8px;width:80%;vertical-align:middle">
-                <a href="https://jjoonii.github.io/cf3-website/">
-                  <span class="papertitle">CF3: Compact and Fast 3D Feature Fields</span>
-                </a>
-                <br>
-                <strong>Hyunjoon Lee</strong>,
-                <a>Joonkyu Min</a>,
-                <a href="https://jaesik.info/">Jaesik Park</a>,
-                <br>
-                <strong style="color: red;"><em>ICCV(Main Conference & Demonstrations Track)</em></strong>, 2025
-                <br>
-                <a href="https://jjoonii.github.io/cf3-website/">project page</a>
-                /
-                <a href="https://arxiv.org/abs/2508.05254">arXiv</a>
-                /
-                <a href="https://github.com/SNU-VGILab/CF3">code</a>
-                <p></p>
-                <p>
-                We propose a method to build compact and fast 3D Gaussian feature fields by effectively compressing and sparsifying Gaussians, achieving competitive performance with significantly fewer gaussians.
-                </p>
-              </td>
-            </tr>
+        .project-links a {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 10px;
+            color: var(--text-sub);
+            text-transform: uppercase;
+        }
+        .project-links a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        /* --- 7. List Style (Awards/Patents) --- */
+        ul.simple-list {
+            padding-left: 20px;
+        }
+        ul.simple-list li {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        /* --- 8. Footer --- */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 0.85rem;
+            color: var(--text-sub);
+        }
+        
+        footer a {
+            text-decoration: underline;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 768px) {
+            .container { padding: 30px 15px; }
+            .card { padding: 24px; }
             
-          </tbody></table>
+            .profile-wrapper {
+                flex-direction: column-reverse;
+                text-align: center;
+                gap: 20px;
+            }
+            .profile-links { justify-content: center; }
+            
+            .project-item {
+                flex-direction: column;
+            }
+            .project-thumb {
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
 
-          
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-              <td style="padding:16px;width:100%;vertical-align:middle">
-                <h2>Awards & Honors</h2>
-                <ul>
-                  <li>
-                    <strong>Honorable Mention</strong>, Research Paper Competition, Seoul National University, Korea (Dec. 2025)
-                  </li>
-                  <li>
-                    <strong>Outstanding Paper Presentation Award</strong>, "Efficient Feature Lifting and Compression Using Pre-trained 3D Gaussians", Korea Computer Congress (Aug. 2025)
-                  </li>
-                  <li>
-                    <strong>Invited Talk</strong>, "CF3: Compact and Fast 3D Feature Fields", SNU Graduate of AI Research Exchange (Jun. 2025)
-                  </li>
-                  <li>
-                    <strong>Top Excellence Award at the Creative Research Project</strong>, Seoul National University (Jun. 2025)
-                  </li>
-                  <li>
-                    <strong>Outstanding Award at the Demo Competition</strong>, Seoul National University (Jun. 2025)
-                  </li>
-                  <li>
-                    <strong>Invited Talk</strong>, "CF3: Compact and Fast 3D Feature Fields", NaverLabs (Mar. 2025)
-                  </li>
-                  <li>
-                    <strong>Dean's List Award</strong>, Sungkyunkwan University (May 2021)
-                  </li>
-                  <li>
-                    <strong>Scholarship for Academic Excellence</strong>, Sungkyunkwan University (Mar. 2021)
-                  </li>
-                  <li>
-                    <strong>Dean's List Award</strong>, Sungkyunkwan University (Oct. 2020)
-                  </li>
-                  <li>
-                    <strong>Scholarship for Research Excellence</strong>, Sungkyunkwan University (Mar. 2020)
-                  </li>
-                  <li>
-                    <strong>Scholarship for Academic Excellence</strong>, Sungkyunkwan University (Mar. 2019)
-                  </li>
-                  <li>
-                    <strong>Scholarship for Academic Excellence</strong>, Sungkyunkwan University (Sep. 2018)
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          </tbody></table>
+<body>
 
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-              <td style="padding:16px;width:100%;vertical-align:middle">
-                <h2>Patents</h2>
-                <ul>
-                  <li>
-                    <strong>CF3: Compact and Fast 3D Feature Fields</strong>, KR Patent 10-2025-0093174
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          </tbody></table>
-          
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-              <td style="padding:0px">
-                <br>
-                <p style="text-align:right;font-size:small;">
-                  Template from <a href="https://github.com/jonbarron/jonbarron_website">Jon Barron's website</a>.
-                </p>
-              </td>
-            </tr>
-          </tbody></table>
-        </td>
-      </tr>
-    </table>
-  </body>
+    <main class="container">
+        
+        <section class="card">
+            <div class="profile-wrapper">
+                <div class="profile-text">
+                    <h1 class="profile-name">Hyunjoon Lee</h1>
+                    <p class="profile-bio">
+                        I am an integrated MS/PhD student at <a href="https://jaesik.info/" target="_blank">VGI Lab</a> (Visual and Geometric Intelligence Lab) at <a href="https://www.snu.ac.kr/" target="_blank">Seoul National University</a>, where I am advised by Prof. <a href="https://jaesik.info/" target="_blank">Jaesik Park</a>.
+                    </p>
+                    <p style="margin-bottom: 15px; font-size: 0.95rem; color: #666;">
+                        My research interests lie at the intersection of <strong>3D vision and robotics</strong>. I am particularly interested in how we can leverage rich scene information to enhance robot manipulation capabilities in complex environments.
+                    </p>
+                    <div class="profile-links">
+                        <a href="mailto:hjlee4772@snu.ac.kr" class="link-badge">Email</a>
+                        <a href="data/cv.pdf" class="link-badge">CV</a>
+                        <a href="https://scholar.google.com/citations?hl=ko&authuser=3&user=UURG9uwAAAAJ" target="_blank" class="link-badge">Google Scholar</a>
+                        <a href="https://www.linkedin.com/in/hyunjoon-lee-05057427a/" target="_blank" class="link-badge">LinkedIn</a>
+                        <a href="https://github.com/JJoonII" target="_blank" class="link-badge">Github</a>
+                    </div>
+                </div>
+                <div class="profile-img-container">
+                    <a href="images/HJ.jpg">
+                        <img src="images/HJ.jpg" alt="Hyunjoon Lee Profile" class="profile-img">
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2 class="section-title">Education</h2>
+            <ul class="info-list">
+                <li class="info-item">
+                    <div class="info-content">
+                        <div class="info-title">Seoul National University (SNU)</div>
+                        <div class="info-meta">Seoul, Korea • Integrated M.S./Ph.D. in AI</div>
+                        <div class="info-desc">Advisor: Jaesik Park</div>
+                        <span class="date-badge">Mar. 2024 - Present</span>
+                    </div>
+                </li>
+                <li class="info-item">
+                    <div class="info-content">
+                        <div class="info-title">Sungkyunkwan University (SKKU)</div>
+                        <div class="info-meta">Suwon, Korea • B.S. in Mechanical Engineering</div>
+                        <div class="info-desc">
+                            Summa Cum Laude <span style="color: #d32f2f; font-weight: 700;">(1/131)</span>, GPA: 4.39/4.5
+                        </div>
+                        <span class="date-badge">Mar. 2018 - Feb. 2024</span>
+                    </div>
+                </li>
+            </ul>
+
+            <h2 class="section-title" style="margin-top: 40px;">Experience</h2>
+            <ul class="info-list">
+                <li class="info-item">
+                    <div class="info-content">
+                        <div class="info-title">Research Intern @ HuGe Lab, KAIST AI</div>
+                        <div class="info-desc">Advisor: Beomjoon Kim</div>
+                        <div class="info-desc" style="margin-top:4px;">Developed a model to predict 6-DoF grasp poses using a depth sensor.</div>
+                        <span class="date-badge">Jun. 2023 - Sep. 2023</span>
+                    </div>
+                </li>
+                <li class="info-item">
+                    <div class="info-content">
+                        <div class="info-title">Research Intern @ CSI Lab, SKKU</div>
+                        <div class="info-desc">Advisor: Yusung Kim</div>
+                        <div class="info-desc" style="margin-top:4px;">Developed an RL agent using the PPO algorithm and transformer architecture.</div>
+                        <span class="date-badge">Jan. 2023 - Jun. 2023</span>
+                    </div>
+                </li>
+                <li class="info-item">
+                    <div class="info-content">
+                        <div class="info-title">Research Intern @ CAMAS Lab, SKKU</div>
+                        <div class="info-desc">Advisor: Jachoon Koo</div>
+                        <div class="info-desc" style="margin-top:4px;">Developed a mathematical model to elucidate the stiffness mechanism of the soft gripper.</div>
+                        <span class="date-badge">Dec. 2019 - Mar. 2020</span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2 class="section-title">Research</h2>
+            
+            <div class="project-item">
+                <div class="project-thumb">
+                    <img src="images/hidigs_v1.png" alt="HiDiGS Project">
+                </div>
+                <div class="project-details">
+                    <div class="project-title">HiDiGS: Training-free Hierarchical Clustering...</div>
+                    <div class="project-authors">
+                        <strong>Hyunjoon Lee*</strong>, Eunsung Cha*, Jaesik Park
+                    </div>
+                    <span class="project-venue">Under Review, 2026</span>
+                    <p class="project-desc">
+                        We propose a training-free hierarchical clustering framework for open-vocabulary 3D Gaussian segmentation, unifying instance-level coherence and query flexibility via an efficient digraph-based formulation without per-scene optimization.
+                    </p>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-thumb">
+                    <img src="images/mmvt_v1.png" alt="MMVT Project">
+                </div>
+                <div class="project-details">
+                    <div class="project-title">Feed-forward Multi-view 3D Reconstruction...</div>
+                    <div class="project-authors">
+                        Jinmo Kim, Namtae Kim, <strong>Hyunjoon Lee</strong>, Seungha Kim, Jaesik Park
+                    </div>
+                    <span class="project-venue">Under Review, 2026</span>
+                    <p class="project-desc">
+                        We propose a feed-forward multi-view 3D reconstruction framework that explicitly reasons about occlusions by reconstructing missing latent tokens across views.
+                    </p>
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-thumb">
+                    <img src="images/cf3.png" alt="CF3 Project">
+                </div>
+                <div class="project-details">
+                    <div class="project-title">
+                        <a href="https://jjoonii.github.io/cf3-website/" target="_blank">CF3: Compact and Fast 3D Feature Fields</a>
+                    </div>
+                    <div class="project-authors">
+                        <strong>Hyunjoon Lee</strong>, Joonkyu Min, Jaesik Park
+                    </div>
+                    <span class="project-venue" style="color: #d32f2f;">ICCV (Main & Demonstrations Track), 2025</span>
+                    <p class="project-desc">
+                        We propose a method to build compact and fast 3D Gaussian feature fields by effectively compressing and sparsifying Gaussians, achieving competitive performance with significantly fewer gaussians.
+                    </p>
+                    <div class="project-links">
+                        <a href="https://jjoonii.github.io/cf3-website/" target="_blank">Project Page</a> /
+                        <a href="https://arxiv.org/abs/2508.05254" target="_blank">arXiv</a> /
+                        <a href="https://github.com/SNU-VGILab/CF3" target="_blank">Code</a>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <section class="card">
+            <h2 class="section-title">Awards & Honors</h2>
+            <ul class="simple-list">
+                <li><strong>Honorable Mention</strong>, Research Paper Competition, Seoul National University (Dec. 2025)</li>
+                <li><strong>Outstanding Paper Presentation Award</strong>, Korea Computer Congress (Aug. 2025)</li>
+                <li><strong>Invited Talk</strong>, SNU Graduate of AI Research Exchange (Jun. 2025)</li>
+                <li><strong>Top Excellence Award</strong>, Creative Research Project, Seoul National University (Jun. 2025)</li>
+                <li><strong>Outstanding Award</strong>, Demo Competition, Seoul National University (Jun. 2025)</li>
+                <li><strong>Invited Talk</strong>, NaverLabs (Mar. 2025)</li>
+                <li><strong>Dean's List Award</strong>, Sungkyunkwan University (May 2021, Oct 2020)</li>
+                <li><strong>Scholarship for Academic Excellence</strong>, Sungkyunkwan University (Sep. 2018, Mar. 2019, Mar. 2020, Mar. 2021)</li>
+            </ul>
+
+            <h2 class="section-title" style="margin-top: 40px;">Patents</h2>
+            <ul class="simple-list">
+                <li><strong>CF3: Compact and Fast 3D Feature Fields</strong>, KR Patent 10-2025-0093174</li>
+            </ul>
+        </section>
+      
+       <footer>
+            <p>
+                &copy; Hyunjoon Lee. Template inspired by modern minimal designs.<br>
+                Original data from <a href="https://github.com/jonbarron/jonbarron_website" target="_blank">Jon Barron's website</a>.
+            </p>
+        </footer>
+
+    </main>
+</body>
 </html>
