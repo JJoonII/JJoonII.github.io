@@ -263,6 +263,31 @@
             text-decoration: underline;
         }
 
+        /* --- 6b. Section: Projects (Video) --- */
+        .project-video-item {
+            margin-bottom: 40px;
+        }
+
+        .project-video-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .project-entry-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-main);
+        }
+
+        .project-video {
+            width: 100%;
+            display: block;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            background-color: #000;
+        }
+
         /* --- 7. List Style (Awards/Patents) --- */
         ul.simple-list {
             padding-left: 20px;
@@ -454,6 +479,17 @@
                 </div>
             </div>
 
+        </section>
+
+        <section class="card">
+            <h2 class="section-title">Projects</h2>
+            <div class="project-video-item">
+                <h3 class="project-entry-title">Real2Sim VLA</h3>
+                <video class="project-video" autoplay muted loop playsinline controls>
+                    <source src="images/video/Real2Sim_VLA.mp4" type="video/mp4">
+                </video>
+                <p class="project-desc">A VLA model was fine-tuned on real-world scene data, and the corresponding scene was reconstructed with 2DGS and converted into a USD-compatible mesh for integration with Isaac Sim. This enables the VLA to run in a photorealistic Real2Sim environment for post-training and diverse scene-level evaluation.</p>
+            </div>
         </section>
 
         <section class="card">
