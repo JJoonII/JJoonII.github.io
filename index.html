@@ -212,6 +212,95 @@
             transform: scale(1.05);
         }
 
+        /* --- 6d. Inline demo toggle (e.g. robot demo video) --- */
+        .demo-toggle {
+            margin-top: 14px;
+        }
+
+        .demo-toggle > summary {
+            cursor: pointer;
+            list-style: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #d32f2f;
+            background-color: rgba(211, 47, 47, 0.09);
+            border: 1px solid rgba(211, 47, 47, 0.25);
+            padding: 7px 15px;
+            border-radius: 20px;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+
+        .demo-toggle > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .demo-toggle > summary::after {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-right: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: rotate(45deg) translate(-2px, -2px);
+            transition: transform 0.2s ease;
+        }
+
+        .demo-toggle[open] > summary::after {
+            transform: rotate(-135deg) translate(-2px, -2px);
+        }
+
+        .demo-toggle > summary:hover {
+            background-color: #d32f2f;
+            border-color: #d32f2f;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* 닫혀 있을 때만 살짝 맥동시켜 눈에 띄게 */
+        .demo-toggle:not([open]) > summary {
+            animation: demo-pulse 2.4s ease-in-out infinite;
+        }
+
+        @keyframes demo-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.35); }
+            50%      { box-shadow: 0 0 0 6px rgba(211, 47, 47, 0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .demo-toggle:not([open]) > summary { animation: none; }
+            .demo-toggle > summary:hover { transform: none; }
+        }
+
+        .demo-content {
+            padding-top: 14px;
+        }
+
+        /* aspect-ratio는 영상마다 다르므로 각 <video>에 inline으로 준다.
+           preload="none"이라 메타데이터가 오기 전까지 높이를 모르는데,
+           이 값이 없으면 재생 시작 순간 레이아웃이 튄다. */
+        .demo-video {
+            width: 100%;
+            max-width: 520px;
+            display: block;
+            border-radius: 8px;
+            background-color: #000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .demo-caption {
+            display: inline-block;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            background-color: rgba(37, 99, 235, 0.09);
+            border-radius: 8px;
+            padding: 7px 12px;
+            margin-top: 12px;
+        }
+
         .project-details {
             flex: 1;
         }
@@ -286,6 +375,76 @@
             margin-bottom: 12px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             background-color: #000;
+        }
+
+        /* --- 6c. Subsection: Domestic Publications --- */
+        .section-divider {
+            border: none;
+            border-top: 2px solid #f0f0f0;
+            margin: 40px 0 24px;
+        }
+
+        .subsection-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .domestic-toggle > summary {
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0;
+            user-select: none;
+            transition: color 0.2s;
+        }
+
+        .domestic-toggle > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .domestic-toggle > summary:hover {
+            color: var(--accent-color);
+        }
+
+        .domestic-toggle > summary::after {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-right: 2px solid var(--text-sub);
+            border-bottom: 2px solid var(--text-sub);
+            transform: rotate(45deg) translate(-2px, -2px);
+            transition: transform 0.2s ease;
+        }
+
+        .domestic-toggle[open] > summary::after {
+            transform: rotate(-135deg) translate(-2px, -2px);
+        }
+
+        .domestic-content {
+            padding-top: 20px;
+        }
+
+        .pub-plain-item {
+            margin-bottom: 20px;
+        }
+
+        .pub-plain-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .pub-plain-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+
+        .pub-plain-item .project-venue {
+            color: var(--text-main);
         }
 
         /* --- 7. List Style (Awards/Patents) --- */
@@ -385,38 +544,10 @@
                     </div>
                 </li>
             </ul>
-
-            <h2 class="section-title" style="margin-top: 40px;">Experience</h2>
-            <ul class="info-list">
-                <li class="info-item">
-                    <div class="info-content">
-                        <div class="info-title">Research Intern @ HuGe Lab, KAIST AI</div>
-                        <div class="info-desc">Advisor: Beomjoon Kim</div>
-                        <div class="info-desc" style="margin-top:4px;">Developed a model to predict 6-DoF grasp poses using a depth sensor.</div>
-                        <span class="date-badge">Jun. 2023 - Sep. 2023</span>
-                    </div>
-                </li>
-                <li class="info-item">
-                    <div class="info-content">
-                        <div class="info-title">Research Intern @ CSI Lab, SKKU</div>
-                        <div class="info-desc">Advisor: Yusung Kim</div>
-                        <div class="info-desc" style="margin-top:4px;">Developed an RL agent using the PPO algorithm and transformer architecture.</div>
-                        <span class="date-badge">Jan. 2023 - Jun. 2023</span>
-                    </div>
-                </li>
-                <li class="info-item">
-                    <div class="info-content">
-                        <div class="info-title">Research Intern @ CAMAS Lab, SKKU</div>
-                        <div class="info-desc">Advisor: Jachoon Koo</div>
-                        <div class="info-desc" style="margin-top:4px;">Developed a mathematical model to elucidate the stiffness mechanism of the soft gripper.</div>
-                        <span class="date-badge">Dec. 2019 - Mar. 2020</span>
-                    </div>
-                </li>
-            </ul>
         </section>
 
         <section class="card">
-            <h2 class="section-title">Research</h2>
+            <h2 class="section-title">Publications</h2>
             <p style="font-size: 1rem; margin-bottom: 20px;">
                 <em>* equal contribution</em>
             </p>
@@ -440,6 +571,15 @@
                         <a href="" target="_blank">arXiv</a> /
                         <a href="" target="_blank">Code</a>
                     </div>
+                    <details class="demo-toggle">
+                        <summary>👀 See the robot demo!</summary>
+                        <div class="demo-content">
+                            <video class="demo-video" src="images/video/PairGS_short_video.mp4"
+                                   style="aspect-ratio: 1280 / 552;"
+                                   muted loop playsinline controls preload="none"
+                                   aria-label="PairGS robot demo"></video>
+                        </div>
+                    </details>
                 </div>
             </div>
 
@@ -484,8 +624,60 @@
                         <a href="https://arxiv.org/abs/2508.05254" target="_blank">arXiv</a> /
                         <a href="https://github.com/SNU-VGILab/CF3" target="_blank">Code</a>
                     </div>
+                    <details class="demo-toggle">
+                        <summary>👀 See the Real World Demo!</summary>
+                        <div class="demo-content">
+                            <video class="demo-video" src="images/video/CF3_demo.mp4"
+                                   style="aspect-ratio: 1280 / 444;"
+                                   muted loop playsinline controls preload="none"
+                                   aria-label="CF3 real-world demo"></video>
+                            <p class="demo-caption">⚡ Runs on a local laptop.</p>
+                        </div>
+                    </details>
                 </div>
             </div>
+
+            <hr class="section-divider">
+            <details class="domestic-toggle">
+                <summary class="subsection-title">Domestic</summary>
+                <div class="domestic-content">
+                    <div class="pub-plain-item">
+                        <div class="pub-plain-title">
+                            Language-Driven Robotic Manipulation via Open-Vocabulary 3D Gaussian Scene Understanding
+                        </div>
+                        <div class="project-authors">
+                            <strong style="color: var(--text-main);">Hyunjoon Lee</strong>, Eunsung Cha, Jaesik Park
+                        </div>
+                        <span class="project-venue">
+                            KCC <span style="color: #d32f2f; font-weight: 700;">(Outstanding Presentation Award)</span>, 2026
+                        </span>
+                    </div>
+
+                    <div class="pub-plain-item">
+                        <div class="pub-plain-title">
+                            Aligning 2D Mask Space Consistency Using 3D Gaussian Splatting
+                        </div>
+                        <div class="project-authors">
+                            Eunsung Cha, <strong style="color: var(--text-main);">Hyunjoon Lee</strong>, Jaesik Park
+                        </div>
+                        <span class="project-venue">
+                            KCC <span style="color: #d32f2f; font-weight: 700;">(Outstanding Presentation Award)</span>, 2026
+                        </span>
+                    </div>
+
+                    <div class="pub-plain-item">
+                        <div class="pub-plain-title">
+                            Efficient Feature Lifting and Compression Using Pre-trained 3D Gaussians
+                        </div>
+                        <div class="project-authors">
+                            <strong style="color: var(--text-main);">Hyunjoon Lee</strong>, Joonkyu Min, Jaesik Park
+                        </div>
+                        <span class="project-venue">
+                            KCC <span style="color: #d32f2f; font-weight: 700;">(Outstanding Presentation Award)</span>, 2025
+                        </span>
+                    </div>
+                </div>
+            </details>
 
         </section>
 
@@ -501,8 +693,37 @@
         </section>
 
         <section class="card">
-            <h2 class="section-title">Awards & Honors</h2>
+            <h2 class="section-title">Experience</h2>
+            <ul class="info-list">
+                <li class="info-item">
+                    <div class="info-content">
+                        <div class="info-title">Research Intern @ HuGe Lab, KAIST AI</div>
+                        <div class="info-desc">Advisor: Beomjoon Kim</div>
+                        <div class="info-desc" style="margin-top:4px;">Developed a model to predict 6-DoF grasp poses using a depth sensor.</div>
+                        <span class="date-badge">Jun. 2023 - Sep. 2023</span>
+                    </div>
+                </li>
+                <li class="info-item">
+                    <div class="info-content">
+                        <div class="info-title">Research Intern @ CSI Lab, SKKU</div>
+                        <div class="info-desc">Advisor: Yusung Kim</div>
+                        <div class="info-desc" style="margin-top:4px;">Developed an RL agent using the PPO algorithm and transformer architecture.</div>
+                        <span class="date-badge">Jan. 2023 - Jun. 2023</span>
+                    </div>
+                </li>
+                <li class="info-item">
+                    <div class="info-content">
+                        <div class="info-title">Research Intern @ CAMAS Lab, SKKU</div>
+                        <div class="info-desc">Advisor: Jachoon Koo</div>
+                        <div class="info-desc" style="margin-top:4px;">Developed a mathematical model to elucidate the stiffness mechanism of the soft gripper.</div>
+                        <span class="date-badge">Dec. 2019 - Mar. 2020</span>
+                    </div>
+                </li>
+            </ul>
+
+            <h2 class="section-title" style="margin-top: 40px;">Awards & Honors</h2>
             <ul class="simple-list">
+                <li><strong>Outstanding Paper Presentation Award × 2</strong>, Korea Computer Congress (Aug. 2026)</li>
                 <li><strong>Outstanding Paper Presentation Award</strong>, IPIU (Feb. 2026)</li>
                 <li><strong>Honorable Mention</strong>, Research Paper Competition, Seoul National University (Dec. 2025)</li>
                 <li><strong>Outstanding Paper Presentation Award</strong>, Korea Computer Congress (Aug. 2025)</li>
@@ -529,5 +750,21 @@
         </footer>
         --> 
     </main>
+
+    <script>
+        // 토글을 열 때만 영상을 받아와 재생하고, 닫으면 멈춘다 (preload="none"과 한 쌍).
+        document.querySelectorAll('.demo-toggle').forEach(function (toggle) {
+            var video = toggle.querySelector('video');
+            if (!video) return;
+            toggle.addEventListener('toggle', function () {
+                if (toggle.open) {
+                    var p = video.play();
+                    if (p) p.catch(function () {});
+                } else {
+                    video.pause();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
