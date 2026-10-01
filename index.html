@@ -6,7 +6,7 @@
     <meta name="description" content="Hyunjoon Lee - Integrated MS/PhD student at VGI Lab, SNU">
     <meta name="author" content="Hyunjoon Lee">
     <title>Hyunjoon Lee | VGI Lab</title>
-    <link rel="shortcut icon" href="images/icon_v1.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="images/icon_v2.ico" type="image/x-icon">
 
     <style>
         /* --- 1. Global Reset & Variables --- */
@@ -98,6 +98,15 @@
             font-weight: 600;
         }
 
+        /* 연구 분야 강조: 본문색 + 글자 아래쪽만 옅게 칠한 형광펜 */
+        .research-focus {
+            color: var(--text-main);
+            background-image: linear-gradient(transparent 60%, rgba(37, 99, 235, 0.16) 60%);
+            padding: 0 2px;
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+        }
+
         .profile-links {
             display: flex;
             flex-wrap: wrap;
@@ -141,11 +150,33 @@
 
         .info-item {
             display: flex;
+            align-items: flex-start;
+            gap: 18px;
             margin-bottom: 24px;
         }
 
         .info-item:last-child {
             margin-bottom: 0;
+        }
+
+        /* 기관 로고: 모양이 제각각(엠블럼·워드마크)이라 같은 크기의 흰 타일에 contain으로 맞춘다.
+           크게 키우면 아마추어 같아 보이니 제목 두 줄 높이 정도로만 둔다. */
+        .info-logo {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            padding: 5px;
+            background-color: #fff;
+            border: 1px solid #e8e8ed;
+            border-radius: 10px;
+            margin-top: 2px;
+        }
+
+        .info-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
         }
 
         .info-content {
@@ -183,7 +214,8 @@
         /* --- 6. Section: Projects (Grid/Flex) --- */
         .project-item {
             display: flex;
-            gap: 24px;
+            flex-wrap: wrap; /* 데모 영상 칸을 다음 줄 전체 폭으로 보내기 위함 */
+            column-gap: 24px;
             margin-bottom: 40px;
             align-items: flex-start;
         }
@@ -192,8 +224,11 @@
             margin-bottom: 0;
         }
 
+        /* 모든 썸네일을 CF3 티저 비율(1367×949)의 같은 상자에 맞춘다.
+           비율이 다른 티저는 잘리지 않고 흰 여백이 생긴다(contain). */
         .project-thumb {
-            width: 220px;
+            width: 260px;
+            aspect-ratio: 1367 / 949;
             flex-shrink: 0;
             border-radius: 8px;
             overflow: hidden;
@@ -203,7 +238,8 @@
 
         .project-thumb img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: contain;
             display: block;
             transition: transform 0.3s;
         }
@@ -212,33 +248,29 @@
             transform: scale(1.05);
         }
 
-        /* --- 6d. Inline demo toggle (e.g. robot demo video) --- */
+        /* --- 6d. Demo toggle (e.g. robot demo video) ---
+           버튼은 글 칸 안에 두고, 영상 칸(.demo-content)은 project-item의 마지막 자식으로 둔다.
+           project-item이 flex-wrap이라 영상 칸이 다음 줄로 넘어가 티저 아래까지 전체 폭을 쓴다.
+           버튼과 영상 칸은 aria-controls ↔ id로 짝지어지고, 열고 닫기는 하단 script가 한다. */
         .demo-toggle {
             margin-top: 14px;
-        }
-
-        .demo-toggle > summary {
             cursor: pointer;
-            list-style: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.9rem;
+            font-family: inherit;
+            font-size: 0.82rem;
             font-weight: 700;
             color: #d32f2f;
             background-color: rgba(211, 47, 47, 0.09);
             border: 1px solid rgba(211, 47, 47, 0.25);
-            padding: 7px 15px;
+            padding: 6px 14px;
             border-radius: 20px;
             user-select: none;
             transition: all 0.2s ease;
         }
 
-        .demo-toggle > summary::-webkit-details-marker {
-            display: none;
-        }
-
-        .demo-toggle > summary::after {
+        .demo-toggle::after {
             content: "";
             width: 6px;
             height: 6px;
@@ -248,11 +280,11 @@
             transition: transform 0.2s ease;
         }
 
-        .demo-toggle[open] > summary::after {
+        .demo-toggle[aria-expanded="true"]::after {
             transform: rotate(-135deg) translate(-2px, -2px);
         }
 
-        .demo-toggle > summary:hover {
+        .demo-toggle:hover {
             background-color: #d32f2f;
             border-color: #d32f2f;
             color: #fff;
@@ -260,7 +292,7 @@
         }
 
         /* 닫혀 있을 때만 살짝 맥동시켜 눈에 띄게 */
-        .demo-toggle:not([open]) > summary {
+        .demo-toggle[aria-expanded="false"] {
             animation: demo-pulse 2.4s ease-in-out infinite;
         }
 
@@ -270,12 +302,18 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .demo-toggle:not([open]) > summary { animation: none; }
-            .demo-toggle > summary:hover { transform: none; }
+            .demo-toggle[aria-expanded="false"] { animation: none; }
+            .demo-toggle:hover { transform: none; }
         }
 
         .demo-content {
-            padding-top: 14px;
+            flex-basis: 100%;
+            width: 100%;
+            padding-top: 20px;
+        }
+
+        .demo-content[hidden] {
+            display: none;
         }
 
         /* aspect-ratio는 영상마다 다르므로 각 <video>에 inline으로 준다.
@@ -283,7 +321,6 @@
            이 값이 없으면 재생 시작 순간 레이아웃이 튄다. */
         .demo-video {
             width: 100%;
-            max-width: 520px;
             display: block;
             border-radius: 8px;
             background-color: #000;
@@ -292,7 +329,7 @@
 
         .demo-caption {
             display: inline-block;
-            font-size: 0.9rem;
+            font-size: 0.82rem;
             font-weight: 700;
             color: var(--accent-color);
             background-color: rgba(37, 99, 235, 0.09);
@@ -306,10 +343,12 @@
         }
 
         .project-title {
-            font-size: 1.15rem;
+            font-size: 1.02rem;
             font-weight: 700;
+            line-height: 1.4;
             margin-bottom: 6px;
             color: var(--text-main);
+            text-wrap: balance; /* 긴 제목이 한 단어만 다음 줄로 넘어가지 않게 */
         }
 
         .project-title a {
@@ -321,17 +360,23 @@
         }
 
         .project-authors {
-            font-size: 0.95rem;
+            font-size: 0.87rem;
             color: var(--text-sub);
             margin-bottom: 6px;
+            text-wrap: pretty; /* 마지막 줄에 이름 반쪽만 남지 않게 */
+        }
+
+        /* 링크 걸린 저자 이름이 줄바꿈으로 쪼개지지 않게 */
+        .project-authors a {
+            white-space: nowrap;
         }
 
         .project-venue {
             font-style: italic;
             color: var(--accent-color); /* 강조색 사용 */
             font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 10px;
+            font-size: 0.84rem;
+            margin-bottom: 8px;
             display: block;
         }
 
@@ -341,7 +386,7 @@
         }
 
         .project-links a {
-            font-size: 0.85rem;
+            font-size: 0.78rem;
             font-weight: 600;
             margin-right: 10px;
             color: var(--text-sub);
@@ -437,7 +482,7 @@
         }
 
         .pub-plain-title {
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             margin-bottom: 4px;
             color: var(--text-main);
@@ -447,13 +492,99 @@
             color: var(--text-main);
         }
 
-        /* --- 7. List Style (Awards/Patents) --- */
-        ul.simple-list {
-            padding-left: 20px;
+        /* --- 7. Awards & Patents (card grid) ---
+           칸 폭이 300px 밑으로 떨어지면 자동으로 한 줄에 하나씩 쌓인다. */
+        .award-grid {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 12px;
         }
-        ul.simple-list li {
+
+        /* 카드 구성: [분류 아이콘·라벨 ........ 날짜] → 제목(굵게) → 기관(회색).
+           분류 색은 카드에 붙인 k-* 클래스의 --kind 하나로만 정하고,
+           아이콘·라벨·×2 배지만 그 색을 쓴다. 제목과 본문은 무채색으로 둔다. */
+        .award-card {
+            --kind: var(--text-sub);
+            padding: 16px 18px 17px;
+            background-color: #fafafc;
+            border: 1px solid #ededf1;
+            border-radius: 14px;
+        }
+
+        .k-award       { --kind: #b45309; }
+        .k-talk        { --kind: #2563eb; }
+        .k-honor       { --kind: #0f766e; }
+        .k-scholarship { --kind: #0f766e; }
+        .k-patent      { --kind: #7c3aed; }
+
+        .award-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
             margin-bottom: 10px;
+        }
+
+        .award-kind {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--kind);
+        }
+
+        .award-icon {
+            width: 24px;
+            height: 24px;
+            padding: 5px;
+            border-radius: 7px;
+            background-color: color-mix(in srgb, var(--kind) 11%, transparent);
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+
+        .award-date {
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--text-sub);
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .award-title {
             font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.4;
+            letter-spacing: -0.005em;
+            color: var(--text-main);
+            text-wrap: pretty;
+        }
+
+        .award-count {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--kind);
+            background-color: color-mix(in srgb, var(--kind) 11%, transparent);
+            padding: 1px 7px;
+            border-radius: 999px;
+            margin-left: 4px;
+            vertical-align: 1px;
+        }
+
+        .award-meta {
+            font-size: 0.82rem;
+            line-height: 1.45;
+            color: var(--text-sub);
+            margin-top: 2px;
         }
 
         /* --- 8. Footer --- */
@@ -482,7 +613,9 @@
             
             .project-item {
                 flex-direction: column;
+                row-gap: 20px;
             }
+            .demo-content { padding-top: 0; }
             .project-thumb {
                 width: 100%;
                 max-width: 300px;
@@ -494,6 +627,16 @@
 
 <body>
 
+    <!-- Awards & Patents 카드 아이콘 (Lucide, ISC 라이선스). 한 번만 정의하고 <use>로 재사용한다.
+         stroke/fill은 .award-icon에서 상속받는다. -->
+    <svg width="0" height="0" style="position: absolute;" aria-hidden="true" focusable="false">
+        <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+        <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></symbol>
+        <symbol id="i-medal" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></symbol>
+        <symbol id="i-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+        <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
+    </svg>
+
     <main class="container">
         
         <section class="card">
@@ -504,7 +647,7 @@
                         I am an integrated MS/PhD student at <a href="https://jaesik.info/" target="_blank">VGI Lab</a> (Visual and Geometric Intelligence Lab) at <a href="https://www.snu.ac.kr/" target="_blank">Seoul National University</a>, where I am advised by Prof. <a href="https://jaesik.info/" target="_blank">Jaesik Park</a>.
                     </p>
                     <p style="margin-bottom: 15px; font-size: 0.95rem; color: #666;">
-                        My research interests lie at the intersection of <strong>3D vision and robotics</strong>. I am particularly interested in how we can leverage rich scene information to enhance robot manipulation capabilities in complex environments.
+                        My research interests lie at the intersection of <strong class="research-focus">robotics and 3D vision</strong>. I am particularly interested in how we can leverage rich scene information to enhance robot manipulation capabilities in complex environments.
                     </p>
                     <div class="profile-links">
                         <a href="mailto:hjlee4772@snu.ac.kr" class="link-badge">Email</a>
@@ -523,34 +666,43 @@
         </section>
 
         <section class="card">
-            <h2 class="section-title">Education</h2>
-            <ul class="info-list">
-                <li class="info-item">
-                    <div class="info-content">
-                        <div class="info-title">Seoul National University (SNU)</div>
-                        <div class="info-meta">Seoul, Korea • Integrated M.S./Ph.D. in AI</div>
-                        <div class="info-desc">Advisor: Jaesik Park</div>
-                        <span class="date-badge">Mar. 2024 - Present</span>
-                    </div>
-                </li>
-                <li class="info-item">
-                    <div class="info-content">
-                        <div class="info-title">Sungkyunkwan University (SKKU)</div>
-                        <div class="info-meta">Suwon, Korea • B.S. in Mechanical Engineering</div>
-                        <div class="info-desc">
-                            Summa Cum Laude <span style="color: #d32f2f; font-weight: 700;">(1/131)</span>, GPA: 4.39/4.5
-                        </div>
-                        <span class="date-badge">Mar. 2018 - Feb. 2024</span>
-                    </div>
-                </li>
-            </ul>
-        </section>
-
-        <section class="card">
             <h2 class="section-title">Publications</h2>
             <p style="font-size: 1rem; margin-bottom: 20px;">
                 <em>* equal contribution</em>
             </p>
+            <div class="project-item">
+                <div class="project-thumb">
+                    <img src="images/BeyondSCe.png" alt="BeyondCSe Project">
+                </div>
+                <div class="project-details">
+                    <div class="project-title">
+                        <a href="https://www.haebeom.com/BeyondCSe/" target="_blank">Beyond the Current Scene: <br> Event-Referential Grasping with Active View Selection</a>
+                    </div>
+                    <div class="project-authors">
+                        <strong style="color: var(--text-main);">Hyunjoon Lee*</strong>,
+                        <a href="https://www.haebeom.com/" target="_blank">Haebeom Jung*</a>,
+                        Eunsung Cha,
+                        <a href="https://da-eun07.github.io/" target="_blank">Daeun Lee</a>,
+                        <a href="https://vllab.ee.ntu.edu.tw/ycwang.html" target="_blank">Yu-Chiang Frank Wang</a>,
+                        <a href="https://jaesung-choe.github.io/" target="_blank">Jaesung Choe</a>,
+                        <a href="https://jaesik.info/" target="_blank">Jaesik Park</a>
+                    </div>
+                    <span class="project-venue">Under Review, 2026</span>
+                    <div class="project-links">
+                        <a href="https://www.haebeom.com/BeyondCSe/" target="_blank">Project Page</a> /
+                        <a href="https://arxiv.org/abs/2609.39375" target="_blank">arXiv</a> /
+                        <a href="https://github.com/SNU-VGILab/BeyondCSe" target="_blank">Code</a>
+                    </div>
+                    <button type="button" class="demo-toggle" aria-expanded="false" aria-controls="demo-beyondcse">👀 See the robot demo!</button>
+                </div>
+                <div class="demo-content" id="demo-beyondcse" hidden>
+                    <video class="demo-video" src="images/video/BeyondSCe_demo.mp4"
+                           style="aspect-ratio: 1280 / 460;"
+                           muted loop playsinline controls preload="none"
+                           aria-label="BeyondCSe robot demo"></video>
+                </div>
+            </div>
+
             <div class="project-item">
                 <div class="project-thumb">
                     <img src="images/pairgs.png" alt="PairGS Project">
@@ -563,23 +715,18 @@
                         Eunsung Cha*, <strong style="color: var(--text-main);">Hyunjoon Lee*</strong>, Jaesik Park
                     </div>
                     <span class="project-venue">Under Review, 2026</span>
-                    <p class="project-desc">
-                        We propose a novel framework that reframes Gaussian segmentation as modeling pairwise relations between Gaussians, unifying instance-level coherence and query flexibility without per-scene optimization.
-                    </p>
                     <div class="project-links">
                         <a href="https://eunsungcha.github.io/PairGS-web/" target="_blank">Project Page</a> /
                         <a href="" target="_blank">arXiv</a> /
                         <a href="" target="_blank">Code</a>
                     </div>
-                    <details class="demo-toggle">
-                        <summary>👀 See the robot demo!</summary>
-                        <div class="demo-content">
-                            <video class="demo-video" src="images/video/PairGS_short_video.mp4"
-                                   style="aspect-ratio: 1280 / 552;"
-                                   muted loop playsinline controls preload="none"
-                                   aria-label="PairGS robot demo"></video>
-                        </div>
-                    </details>
+                    <button type="button" class="demo-toggle" aria-expanded="false" aria-controls="demo-pairgs">👀 See the robot demo!</button>
+                </div>
+                <div class="demo-content" id="demo-pairgs" hidden>
+                    <video class="demo-video" src="images/video/PairGS_short_video.mp4"
+                           style="aspect-ratio: 1280 / 552;"
+                           muted loop playsinline controls preload="none"
+                           aria-label="PairGS robot demo"></video>
                 </div>
             </div>
 
@@ -595,9 +742,6 @@
                         Jinmo Kim, Namtae Kim, <strong style="color: var(--text-main);">Hyunjoon Lee</strong>, Seungha Kim, Jaesik Park
                     </div>
                     <span class="project-venue">Under Review, 2026</span>
-                    <p class="project-desc">
-                        We propose a feed-forward multi-view 3D reconstruction framework that explicitly reasons about occlusions by reconstructing missing latent tokens across views.
-                    </p>
                     <div class="project-links">
                         <a href="https://openreview.net/forum?id=2i27nl0VPc" target="_blank">OpenReview</a>
                     </div>
@@ -616,24 +760,19 @@
                         <strong style="color: var(--text-main);">Hyunjoon Lee</strong>, Joonkyu Min, Jaesik Park
                     </div>
                     <span class="project-venue" style="color: #d32f2f;">ICCV (Main & Demonstrations Track), 2025</span>
-                    <p class="project-desc">
-                        We propose a method to build compact and fast 3D Gaussian feature fields by effectively compressing and sparsifying Gaussians, achieving competitive performance with significantly fewer gaussians.
-                    </p>
                     <div class="project-links">
                         <a href="https://jjoonii.github.io/cf3-website/" target="_blank">Project Page</a> /
                         <a href="https://arxiv.org/abs/2508.05254" target="_blank">arXiv</a> /
                         <a href="https://github.com/SNU-VGILab/CF3" target="_blank">Code</a>
                     </div>
-                    <details class="demo-toggle">
-                        <summary>👀 See the Real World Demo!</summary>
-                        <div class="demo-content">
-                            <video class="demo-video" src="images/video/CF3_demo.mp4"
-                                   style="aspect-ratio: 1280 / 444;"
-                                   muted loop playsinline controls preload="none"
-                                   aria-label="CF3 real-world demo"></video>
-                            <p class="demo-caption">⚡ Runs on a local laptop.</p>
-                        </div>
-                    </details>
+                    <button type="button" class="demo-toggle" aria-expanded="false" aria-controls="demo-cf3">👀 See the Real World Demo!</button>
+                </div>
+                <div class="demo-content" id="demo-cf3" hidden>
+                    <video class="demo-video" src="images/video/CF3_demo.mp4"
+                           style="aspect-ratio: 1280 / 444;"
+                           muted loop playsinline controls preload="none"
+                           aria-label="CF3 real-world demo"></video>
+                    <p class="demo-caption">⚡ Runs on a local laptop.</p>
                 </div>
             </div>
 
@@ -696,48 +835,152 @@
             <h2 class="section-title">Experience</h2>
             <ul class="info-list">
                 <li class="info-item">
+                    <div class="info-logo"><img src="images/kaistai_logo_crop.png" alt=""></div>
                     <div class="info-content">
                         <div class="info-title">Research Intern @ HuGe Lab, KAIST AI</div>
-                        <div class="info-desc">Advisor: Beomjoon Kim</div>
+                        <div class="info-desc">Advisor: <a href="https://www.hugelab.org/" target="_blank">Beomjoon Kim</a></div>
                         <div class="info-desc" style="margin-top:4px;">Developed a model to predict 6-DoF grasp poses using a depth sensor.</div>
                         <span class="date-badge">Jun. 2023 - Sep. 2023</span>
                     </div>
                 </li>
                 <li class="info-item">
+                    <div class="info-logo"><img src="images/skku_logo.jpeg" alt=""></div>
                     <div class="info-content">
                         <div class="info-title">Research Intern @ CSI Lab, SKKU</div>
-                        <div class="info-desc">Advisor: Yusung Kim</div>
+                        <div class="info-desc">Advisor: <a href="https://sites.google.com/view/csi-skku" target="_blank">Yusung Kim</a></div>
                         <div class="info-desc" style="margin-top:4px;">Developed an RL agent using the PPO algorithm and transformer architecture.</div>
                         <span class="date-badge">Jan. 2023 - Jun. 2023</span>
                     </div>
                 </li>
                 <li class="info-item">
+                    <div class="info-logo"><img src="images/skku_logo.jpeg" alt=""></div>
                     <div class="info-content">
                         <div class="info-title">Research Intern @ CAMAS Lab, SKKU</div>
-                        <div class="info-desc">Advisor: Jachoon Koo</div>
+                        <div class="info-desc">Advisor: <a href="https://camas.skku.edu/camas/index.do" target="_blank">Jachoon Koo</a></div>
                         <div class="info-desc" style="margin-top:4px;">Developed a mathematical model to elucidate the stiffness mechanism of the soft gripper.</div>
                         <span class="date-badge">Dec. 2019 - Mar. 2020</span>
                     </div>
                 </li>
             </ul>
 
-            <h2 class="section-title" style="margin-top: 40px;">Awards & Honors</h2>
-            <ul class="simple-list">
-                <li><strong>Outstanding Paper Presentation Award × 2</strong>, Korea Computer Congress (Aug. 2026)</li>
-                <li><strong>Outstanding Paper Presentation Award</strong>, IPIU (Feb. 2026)</li>
-                <li><strong>Honorable Mention</strong>, Research Paper Competition, Seoul National University (Dec. 2025)</li>
-                <li><strong>Outstanding Paper Presentation Award</strong>, Korea Computer Congress (Aug. 2025)</li>
-                <li><strong>Invited Talk</strong>, SNU Graduate of AI Research Exchange (Jun. 2025)</li>
-                <li><strong>Top Excellence Award</strong>, Creative Research Project, Seoul National University (Jun. 2025)</li>
-                <li><strong>Outstanding Award</strong>, Demo Competition, Seoul National University (Jun. 2025)</li>
-                <li><strong>Invited Talk</strong>, NaverLabs (Mar. 2025)</li>
-                <li><strong>Dean's List Award</strong>, Sungkyunkwan University (May 2021, Oct 2020)</li>
-                <li><strong>Scholarship for Academic Excellence</strong>, Sungkyunkwan University (Sep. 2018, Mar. 2019, Mar. 2020, Mar. 2021)</li>
+            <h2 class="section-title" style="margin-top: 40px;">Education</h2>
+            <ul class="info-list">
+                <li class="info-item">
+                    <div class="info-logo"><img src="images/snu_logo.png" alt=""></div>
+                    <div class="info-content">
+                        <div class="info-title">Seoul National University (SNU)</div>
+                        <div class="info-meta">Seoul, Korea • Integrated M.S./Ph.D. in AI</div>
+                        <div class="info-desc">Advisor: <a href="https://jaesik.info/" target="_blank">Jaesik Park</a></div>
+                        <span class="date-badge">Mar. 2024 - Present</span>
+                    </div>
+                </li>
+                <li class="info-item">
+                    <div class="info-logo"><img src="images/skku_logo.jpeg" alt=""></div>
+                    <div class="info-content">
+                        <div class="info-title">Sungkyunkwan University (SKKU)</div>
+                        <div class="info-meta">Suwon, Korea • B.S. in Mechanical Engineering</div>
+                        <div class="info-desc">
+                            Summa Cum Laude <span style="color: #d32f2f; font-weight: 700;">(1/131)</span>, GPA: 4.39/4.5
+                        </div>
+                        <span class="date-badge">Mar. 2018 - Feb. 2024</span>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2 class="section-title">Awards & Honors</h2>
+            <ul class="award-grid">
+                <li class="award-card k-award">
+                    <div class="award-head">
+                        <span class="award-kind"><svg class="award-icon" aria-hidden="true"><use href="#i-trophy"/></svg>Award</span>
+                        <time class="award-date" datetime="2026-08">Aug.&nbsp;2026</time>
+                    </div>
+                    <div class="award-title">Outstanding Paper Presentation Award <span class="award-count">×2</span></div>
+                    <div class="award-meta">Korea Computer Congress (KCC)</div>
+                </li>
+                <li class="award-card k-award">
+                    <div class="award-head">
+                        <span class="award-kind"><svg class="award-icon" aria-hidden="true"><use href="#i-trophy"/></svg>Award</span>
+                        <time class="award-date" datetime="2026-02">Feb.&nbsp;2026</time>
+                    </div>
+                    <div class="award-title">Outstanding Paper Presentation Award</div>
+                    <div class="award-meta">IPIU</div>
+                </li>
+                <li class="award-card k-award">
+                    <div class="award-head">
+                        <span class="award-kind"><svg class="award-icon" aria-hidden="true"><use href="#i-trophy"/></svg>Award</span>
+                        <time class="award-date" datetime="2025-12">Dec.&nbsp;2025</time>
+                    </div>
+                    <div class="award-title">Honorable Mention</div>
+                    <div class="award-meta">Research Paper Competition, Seoul National University</div>
+                </li>
+                <li class="award-card k-award">
+                    <div class="award-head">
+                        <span class="award-kind"><svg class="award-icon" aria-hidden="true"><use href="#i-trophy"/></svg>Award</span>
+                        <time class="award-date" datetime="2025-08">Aug.&nbsp;2025</time>
+                    </div>
+                    <div class="award-title">Outstanding Paper Presentation Award</div>
+                    <div class="award-meta">Korea Computer Congress (KCC)</div>
+                </li>
+                <li class="award-card k-talk">
+                    <div class="award-head">
+                        <span class="award-kind"><svg class="award-icon" aria-hidden="true"><use href="#i-mic"/></svg>Invited Talk</span>
+                        <time class="award-date" datetime="2025-06">Jun.&nbsp;2025</time>
+                    </div>
+                    <div class="award-title">SNU Graduate of AI Research Exchange</div>
+                </li>
+                <li class="award-card k-award">
+                    <div class="award-head">
+                        <span class="award-kind"><svg class="award-icon" aria-hidden="true"><use href="#i-trophy"/></svg>Award</span>
+                        <time class="award-date" datetime="2025-06">Jun.&nbsp;2025</time>
+                    </div>
+                    <div class="award-title">Top Excellence Award</div>
+                    <div class="award-meta">Creative Research Project, Seoul National University</div>
+                </li>
+                <li class="award-card k-award">
+                    <div class="award-head">
+                        <span class="award-kind"><svg class="award-icon" aria-hidden="true"><use href="#i-trophy"/></svg>Award</span>
+                        <time class="award-date" datetime="2025-06">Jun.&nbsp;2025</time>
+                    </div>
+                    <div class="award-title">Outstanding Award</div>
+                    <div class="award-meta">Demo Competition, Seoul National University</div>
+                </li>
+                <li class="award-card k-talk">
+                    <div class="award-head">
+                        <span class="award-kind"><svg class="award-icon" aria-hidden="true"><use href="#i-mic"/></svg>Invited Talk</span>
+                        <time class="award-date" datetime="2025-03">Mar.&nbsp;2025</time>
+                    </div>
+                    <div class="award-title">NaverLabs</div>
+                </li>
+                <li class="award-card k-honor">
+                    <div class="award-head">
+                        <span class="award-kind"><svg class="award-icon" aria-hidden="true"><use href="#i-medal"/></svg>Honor</span>
+                        <span class="award-date">2020–21</span>
+                    </div>
+                    <div class="award-title">Dean's List Award</div>
+                    <div class="award-meta">Sungkyunkwan University · May&nbsp;2021, Oct.&nbsp;2020</div>
+                </li>
+                <li class="award-card k-scholarship">
+                    <div class="award-head">
+                        <span class="award-kind"><svg class="award-icon" aria-hidden="true"><use href="#i-cap"/></svg>Scholarship</span>
+                        <span class="award-date">2018–21</span>
+                    </div>
+                    <div class="award-title">Scholarship for Academic Excellence</div>
+                    <div class="award-meta">Sungkyunkwan University · 4 semesters</div>
+                </li>
             </ul>
 
             <h2 class="section-title" style="margin-top: 40px;">Patents</h2>
-            <ul class="simple-list">
-                <li><strong>CF3: Compact and Fast 3D Feature Fields</strong>, KR Patent 10-2025-0093174</li>
+            <ul class="award-grid">
+                <li class="award-card k-patent">
+                    <div class="award-head">
+                        <span class="award-kind"><svg class="award-icon" aria-hidden="true"><use href="#i-bulb"/></svg>Patent</span>
+                        <span class="award-date">2025</span>
+                    </div>
+                    <div class="award-title">CF3: Compact and Fast 3D Feature Fields</div>
+                    <div class="award-meta">KR Patent 10-2025-0093174</div>
+                </li>
             </ul>
         </section>
       
@@ -752,12 +995,17 @@
     </main>
 
     <script>
-        // 토글을 열 때만 영상을 받아와 재생하고, 닫으면 멈춘다 (preload="none"과 한 쌍).
-        document.querySelectorAll('.demo-toggle').forEach(function (toggle) {
-            var video = toggle.querySelector('video');
+        // 버튼을 누르면 짝지어진 영상 칸을 펼쳐 그때 영상을 받아와 재생하고,
+        // 다시 누르면 접고 멈춘다 (preload="none"과 한 쌍).
+        document.querySelectorAll('.demo-toggle').forEach(function (btn) {
+            var panel = document.getElementById(btn.getAttribute('aria-controls'));
+            var video = panel && panel.querySelector('video');
             if (!video) return;
-            toggle.addEventListener('toggle', function () {
-                if (toggle.open) {
+            btn.addEventListener('click', function () {
+                var open = btn.getAttribute('aria-expanded') !== 'true';
+                btn.setAttribute('aria-expanded', String(open));
+                panel.hidden = !open;
+                if (open) {
                     var p = video.play();
                     if (p) p.catch(function () {});
                 } else {
