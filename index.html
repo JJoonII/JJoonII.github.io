@@ -251,7 +251,9 @@
         /* --- 6d. Demo toggle (e.g. robot demo video) ---
            버튼은 글 칸 안에 두고, 영상 칸(.demo-content)은 project-item의 마지막 자식으로 둔다.
            project-item이 flex-wrap이라 영상 칸이 다음 줄로 넘어가 티저 아래까지 전체 폭을 쓴다.
-           버튼과 영상 칸은 aria-controls ↔ id로 짝지어지고, 열고 닫기는 하단 script가 한다. */
+           버튼과 영상 칸은 aria-controls ↔ id로 짝지어지고, 열고 닫기는 하단 script가 한다.
+           파랑은 억셉된 학회명·링크, 빨강은 티저 그림 속 강조가 이미 쓰고 있어서
+           버튼은 파랑과 어울리는 옅은 호박색으로 두고, hover·열림에서만 진하게 채운다. */
         .demo-toggle {
             margin-top: 14px;
             cursor: pointer;
@@ -260,14 +262,21 @@
             gap: 8px;
             font-family: inherit;
             font-size: 0.82rem;
-            font-weight: 700;
-            color: #d32f2f;
-            background-color: rgba(211, 47, 47, 0.09);
-            border: 1px solid rgba(211, 47, 47, 0.25);
+            font-weight: 600;
+            color: #7a4a00;
+            background-color: #fff4d6;
+            border: 1px solid #f5d68a;
             padding: 6px 14px;
             border-radius: 20px;
             user-select: none;
             transition: all 0.2s ease;
+        }
+
+        .demo-icon {
+            width: 10px;
+            height: 10px;
+            fill: currentColor;
+            flex-shrink: 0;
         }
 
         .demo-toggle::after {
@@ -284,25 +293,18 @@
             transform: rotate(-135deg) translate(-2px, -2px);
         }
 
+        .demo-toggle:hover,
+        .demo-toggle[aria-expanded="true"] {
+            background-color: #f5b400;
+            border-color: #f5b400;
+            color: var(--text-main);
+        }
+
         .demo-toggle:hover {
-            background-color: #d32f2f;
-            border-color: #d32f2f;
-            color: #fff;
             transform: translateY(-2px);
         }
 
-        /* 닫혀 있을 때만 살짝 맥동시켜 눈에 띄게 */
-        .demo-toggle[aria-expanded="false"] {
-            animation: demo-pulse 2.4s ease-in-out infinite;
-        }
-
-        @keyframes demo-pulse {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.35); }
-            50%      { box-shadow: 0 0 0 6px rgba(211, 47, 47, 0); }
-        }
-
         @media (prefers-reduced-motion: reduce) {
-            .demo-toggle[aria-expanded="false"] { animation: none; }
             .demo-toggle:hover { transform: none; }
         }
 
@@ -371,13 +373,18 @@
             white-space: nowrap;
         }
 
+        /* 기본(In Submission 등)은 회색, 억셉된 학회(.accepted)만 사이트 강조색인 파랑. */
         .project-venue {
             font-style: italic;
-            color: var(--accent-color); /* 강조색 사용 */
+            color: var(--text-sub);
             font-weight: 600;
             font-size: 0.84rem;
             margin-bottom: 8px;
             display: block;
+        }
+
+        .project-venue.accepted {
+            color: var(--accent-color);
         }
 
         .project-desc {
@@ -634,6 +641,7 @@
         <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></symbol>
         <symbol id="i-medal" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></symbol>
         <symbol id="i-cap" viewBox="0 0 24 24"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+        <symbol id="i-play" viewBox="0 0 24 24"><path d="M6 3.5v17a1 1 0 0 0 1.5.86l14-8.5a1 1 0 0 0 0-1.72l-14-8.5A1 1 0 0 0 6 3.5Z"/></symbol>
         <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></symbol>
     </svg>
 
@@ -672,6 +680,27 @@
             </p>
             <div class="project-item">
                 <div class="project-thumb">
+                    <img src="images/mmvt_v2.png" alt="MMVT Project">
+                </div>
+                <div class="project-details">
+                    <!-- 새 버전 공개 전이라 링크를 뺀다. 이전 버전: https://openreview.net/forum?id=2i27nl0VPc -->
+                    <div class="project-title">
+                        Occluded 3D Object Reconstruction <br> via Masked Multi-view Volumetric Transformer
+                    </div>
+                    <div class="project-authors">
+                        Jinmo Kim, <strong style="color: var(--text-main);">Hyunjoon Lee</strong>, Namtae Kim, Eunsung Cha, Seungha Kim, Jaesik Park
+                    </div>
+                    <span class="project-venue">In Submission</span>
+                    <!--
+                    <div class="project-links">
+                        <a href="https://openreview.net/forum?id=2i27nl0VPc" target="_blank">OpenReview</a>
+                    </div>
+                    -->
+                </div>
+            </div>
+
+            <div class="project-item">
+                <div class="project-thumb">
                     <img src="images/BeyondSCe.png" alt="BeyondCSe Project">
                 </div>
                 <div class="project-details">
@@ -687,37 +716,19 @@
                         <a href="https://jaesung-choe.github.io/" target="_blank">Jaesung Choe</a>,
                         <a href="https://jaesik.info/" target="_blank">Jaesik Park</a>
                     </div>
-                    <span class="project-venue">Under Review</span>
+                    <span class="project-venue accepted">CoRL Workshop (Memory for Robot Foundation Models), 2026</span>
                     <div class="project-links">
                         <a href="https://www.haebeom.com/BeyondCSe/" target="_blank">Project Page</a> /
                         <a href="https://arxiv.org/abs/2609.39375" target="_blank">arXiv</a> /
                         <a href="https://github.com/SNU-VGILab/BeyondCSe" target="_blank">Code</a>
                     </div>
-                    <button type="button" class="demo-toggle" aria-expanded="false" aria-controls="demo-beyondcse">👀 See the robot demo!</button>
+                    <button type="button" class="demo-toggle" aria-expanded="false" aria-controls="demo-beyondcse"><svg class="demo-icon" aria-hidden="true"><use href="#i-play"/></svg>Watch robot demo</button>
                 </div>
                 <div class="demo-content" id="demo-beyondcse" hidden>
                     <video class="demo-video" src="images/video/BeyondSCe_demo.mp4"
                            style="aspect-ratio: 1280 / 460;"
                            muted loop playsinline controls preload="none"
                            aria-label="BeyondCSe robot demo"></video>
-                </div>
-            </div>
-
-            <div class="project-item">
-                <div class="project-thumb">
-                    <img src="images/mmvt_v2.png" alt="MMVT Project">
-                </div>
-                <div class="project-details">
-                    <div class="project-title">
-                        <a href="https://openreview.net/forum?id=2i27nl0VPc" target="_blank">Occluded 3D Object Reconstruction <br> via Masked Multi-view Volumetric Transformer</a>
-                    </div>
-                    <div class="project-authors">
-                        Jinmo Kim, Namtae Kim, <strong style="color: var(--text-main);">Hyunjoon Lee</strong>, Seungha Kim, Jaesik Park
-                    </div>
-                    <span class="project-venue">Under Review</span>
-                    <div class="project-links">
-                        <a href="https://openreview.net/forum?id=2i27nl0VPc" target="_blank">OpenReview</a>
-                    </div>
                 </div>
             </div>
 
@@ -732,13 +743,13 @@
                     <div class="project-authors">
                         Eunsung Cha*, <strong style="color: var(--text-main);">Hyunjoon Lee*</strong>, Jaesik Park
                     </div>
-                    <span class="project-venue" style="color: #d32f2f;">WACV, 2027</span>
+                    <span class="project-venue accepted">WACV, 2027</span>
                     <div class="project-links">
                         <a href="https://eunsungcha.github.io/PairGS-web/" target="_blank">Project Page</a> /
                         <a href="" target="_blank">arXiv</a> /
                         <a href="" target="_blank">Code</a>
                     </div>
-                    <button type="button" class="demo-toggle" aria-expanded="false" aria-controls="demo-pairgs">👀 See the robot demo!</button>
+                    <button type="button" class="demo-toggle" aria-expanded="false" aria-controls="demo-pairgs"><svg class="demo-icon" aria-hidden="true"><use href="#i-play"/></svg>Watch robot demo</button>
                 </div>
                 <div class="demo-content" id="demo-pairgs" hidden>
                     <video class="demo-video" src="images/video/PairGS_short_video.mp4"
@@ -759,13 +770,13 @@
                     <div class="project-authors">
                         <strong style="color: var(--text-main);">Hyunjoon Lee</strong>, Joonkyu Min, Jaesik Park
                     </div>
-                    <span class="project-venue" style="color: #d32f2f;">ICCV (Main & Demonstrations Track), 2025</span>
+                    <span class="project-venue accepted">ICCV (Main & Demonstrations Track), 2025</span>
                     <div class="project-links">
                         <a href="https://jjoonii.github.io/cf3-website/" target="_blank">Project Page</a> /
                         <a href="https://arxiv.org/abs/2508.05254" target="_blank">arXiv</a> /
                         <a href="https://github.com/SNU-VGILab/CF3" target="_blank">Code</a>
                     </div>
-                    <button type="button" class="demo-toggle" aria-expanded="false" aria-controls="demo-cf3">👀 See the Real World Demo!</button>
+                    <button type="button" class="demo-toggle" aria-expanded="false" aria-controls="demo-cf3"><svg class="demo-icon" aria-hidden="true"><use href="#i-play"/></svg>Watch real-world demo</button>
                 </div>
                 <div class="demo-content" id="demo-cf3" hidden>
                     <video class="demo-video" src="images/video/CF3_demo.mp4"
